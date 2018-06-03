@@ -1,0 +1,138 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/body.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/skull.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 4, 4 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 2, 1.5 )
+
+[node name="Player" type="KinematicBody2D" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Transform" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="full_body" type="CollisionShape2D" parent="." index="0"]
+
+shape = SubResource( 1 )
+
+[node name="head_collider" type="CollisionShape2D" parent="." index="1"]
+
+modulate = Color( 255, 0, 31.17, 1 )
+position = Vector2( 0, -2.5 )
+shape = SubResource( 2 )
+disabled = true
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
+
+[node name="left_floor_ray" type="RayCast2D" parent="." index="2"]
+
+position = Vector2( -4, 0 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 4.2 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="right_floor_ray" type="RayCast2D" parent="." index="3"]
+
+position = Vector2( 4, 0 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 4.2 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="left_top_ray" type="RayCast2D" parent="." index="4"]
+
+visible = false
+modulate = Color( 0.199219, 2.83, 0.199219, 1 )
+position = Vector2( 0, -4 )
+enabled = false
+exclude_parent = true
+cast_to = Vector2( -4.1, 0 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="left_bottom_ray" type="RayCast2D" parent="." index="5"]
+
+visible = false
+modulate = Color( 0.199219, 2.83, 0.199219, 1 )
+position = Vector2( 0, 4 )
+enabled = false
+exclude_parent = true
+cast_to = Vector2( -4.1, 0 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="right_top_ray" type="RayCast2D" parent="." index="6"]
+
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 0, -4 )
+enabled = false
+exclude_parent = true
+cast_to = Vector2( 4.1, 0 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="right_bottom_ray" type="RayCast2D" parent="." index="7"]
+
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 0, 4 )
+enabled = false
+exclude_parent = true
+cast_to = Vector2( 4.1, 0 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="top_left_ray" type="RayCast2D" parent="." index="8"]
+
+visible = false
+modulate = Color( 1, 1, 60.92, 1 )
+position = Vector2( -4, 0 )
+enabled = false
+exclude_parent = true
+cast_to = Vector2( 0, -4.1 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="top_right_ray" type="RayCast2D" parent="." index="9"]
+
+visible = false
+modulate = Color( 1, 1, 60.92, 1 )
+position = Vector2( 4, 0 )
+enabled = false
+exclude_parent = true
+cast_to = Vector2( 0, -4.1 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="body" type="Sprite" parent="." index="10"]
+
+texture = ExtResource( 2 )
+centered = false
+offset = Vector2( -3.5, -1 )
+_sections_unfolded = [ "Offset", "Transform", "Visibility" ]
+
+[node name="head" type="Sprite" parent="." index="11"]
+
+texture = ExtResource( 3 )
+offset = Vector2( 0, -2 )
+_sections_unfolded = [ "Offset" ]
+
+

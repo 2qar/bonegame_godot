@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Platform.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/skeleton_enemy.tscn" type="PackedScene" id=3]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node
+
+const SCALE = 5
+
+func _ready():
+	var root = get_tree().get_root()
+	var original_size = root.get_size()
+	var size = OS.get_real_window_size()
+	
+	var new_width = size.x * SCALE
+	var new_height = (new_width / 4) * 3
+	
+	OS.set_window_size(Vector2(new_width, new_height))
+	
+	pass"
+
+[node name="World" type="Node" index="0"]
+
+script = SubResource( 1 )
+
+[node name="Player" parent="." index="0" instance=ExtResource( 1 )]
+
+position = Vector2( 48, 64 )
+_sections_unfolded = [ "Collision", "Transform", "Visibility" ]
+
+[node name="Platform" parent="." index="1" instance=ExtResource( 2 )]
+
+position = Vector2( 63, 100 )
+collision_layer = 3
+
+[node name="Platform2" parent="." index="2" instance=ExtResource( 2 )]
+
+position = Vector2( 127, 100 )
+collision_layer = 3
+
+[node name="Platform3" parent="." index="3" instance=ExtResource( 2 )]
+
+position = Vector2( -1, 100 )
+collision_layer = 3
+
+[node name="Enemy" parent="." index="4" instance=ExtResource( 3 )]
+
+position = Vector2( 64, 64 )
+
+

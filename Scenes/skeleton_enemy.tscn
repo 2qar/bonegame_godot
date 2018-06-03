@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/skull.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/body.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 3.5, 2.5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 1, 1 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 1, 1 )
+
+[node name="Enemy" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="body_collider" type="CollisionShape2D" parent="." index="0"]
+
+position = Vector2( -0.5, 1.5 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="head" type="Sprite" parent="." index="1"]
+
+modulate = Color( 1, 0, 0, 1 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -2.5 )
+_sections_unfolded = [ "Material", "Offset", "Transform", "Visibility" ]
+
+[node name="head_area" type="Area2D" parent="head" index="0"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 0 )
+gravity = 0.0
+linear_damp = 0.0
+angular_damp = 0.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="head_collider" type="CollisionShape2D" parent="head/head_area" index="0"]
+
+modulate = Color( 0, 1, 0.015625, 1 )
+position = Vector2( 0, -3.5 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="body" type="Sprite" parent="." index="2"]
+
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 0, 2 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="steal" type="Area2D" parent="." index="3"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 0 )
+gravity = 0.0
+linear_damp = 0.0
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="steal" index="0"]
+
+modulate = Color( 0.289062, 0, 1, 1 )
+position = Vector2( -0.5, -0.5 )
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[connection signal="body_entered" from="head/head_area" to="." method="_on_head_area_body_entered"]
+
+[connection signal="body_entered" from="steal" to="." method="_on_steal_body_entered"]
+
+
