@@ -22,14 +22,14 @@ func _ready():
 	
 	pass"
 
-[node name="World" type="Node" index="0"]
+[node name="World" type="Node"]
 
 script = SubResource( 1 )
 
 [node name="Player" parent="." index="0" instance=ExtResource( 1 )]
 
 position = Vector2( 48, 64 )
-_sections_unfolded = [ "Collision", "Transform", "Visibility" ]
+_sections_unfolded = [ "Collision", "Transform", "Visibility", "collision" ]
 
 [node name="Platform" parent="." index="1" instance=ExtResource( 2 )]
 

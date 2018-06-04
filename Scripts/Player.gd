@@ -6,25 +6,12 @@ const JUMP_HEIGHT = 120
 var movement = Vector2()
 var exploded = false
 
-var collisions
-enum COLLISIONS {
-	left,
-	right,
-	top,
-	bottom
-}
-
 func _ready():
-	explode()
+	change_state(true)
 	pass
 
 func _physics_process(delta):
 	movement_controller()
-	
-#	if !exploded and has_collided_with("ENEMY"):
-#		explode()
-	
-	pass
 
 func movement_controller():
 	var speed = SPEED
@@ -60,39 +47,6 @@ func is_on_floor():
 	var touching_floor = left_ray_touching or right_ray_touching
 	return touching_floor
 	
-func explode():
-	exploded = true
-	
-	# change colliders
-	$full_body.disabled = true
-	$head_collider.disabled = false
-	
-	# hide the body (ꐦ°᷄д°᷅)
-	$body.visible = false
-	
-	# move the floor casters
-	$left_floor_ray.position = Vector2(-2, 0)
-	$right_floor_ray.position = Vector2(2, 0)
-	
-	var cast_pos = Vector2(0, -2.2)
-	$left_floor_ray.cast_to = cast_pos
-	$right_floor_ray.cast_to = cast_pos
-
-func re_assemble():
-	exploded = false
-	
-	$full_body.disabled = false
-	$head_collider.disabled = true
-	
-	$body.visible = true
-	
-	$left_floor_ray.position = Vector2(-4, 0)
-	$right_floor_ray.position = Vector2(4, 0)
-	
-	var cast_pos = Vector2(0, -4.2)
-	$left_floor_ray.cast_to = cast_pos
-	$right_floor_ray.cast_to = cast_pos
-	
 # change between exploded and not exploded
 func change_state(exploded):
 	self.exploded = exploded
@@ -109,7 +63,7 @@ func change_state(exploded):
 	$left_floor_ray.position = Vector2(-pos, 0)
 	$right_floor_ray.position = Vector2(pos, 0)
 	
-	var cast_pos = Vector2(0, -pos -.2)
+	var cast_pos = Vector2(0, pos +.2)
 	$left_floor_ray.cast_to = cast_pos
 	$right_floor_ray.cast_to = cast_pos
 	
