@@ -1,7 +1,14 @@
+# FIXME: Right raycast 1 pixel short of where it should be when the
+# player is just a skull
+
 extends KinematicBody2D
 
 const SPEED = 30
 const JUMP_HEIGHT = 120
+
+const RAYCAST_DISTANCE = .2
+
+onready var SWORD_OFFSET = $sword.position.x
 
 var movement = Vector2()
 var exploded = false
@@ -44,12 +51,24 @@ func is_on_floor():
 	var left_ray_touching = $left_floor_ray.is_colliding()
 	var right_ray_touching = $right_floor_ray.is_colliding()
 
+#	var left_distance = $left_floor_ray.global_position.distance_to($left_floor_ray.get_collision_point())
+#	print("Left: ", left_distance)
+#	var right_distance = $right_floor_ray.global_position.distance_to($right_floor_ray.get_collision_point())
+#	print("Right: ", right_distance)
+
 	var touching_floor = left_ray_touching or right_ray_touching
 	return touching_floor
 	
 # change between exploded and not exploded
 func change_state(exploded):
 	self.exploded = exploded
+	
+	if !exploded:
+		$hitbox/collider.position = Vector2(-.5, 0)
+		$hitbox/collider.shape.set_extents(Vector2(3.5, 4))
+	else:
+		$hitbox/collider.position = $head_collider.position
+		$hitbox/collider.shape = $head_collider.shape
 	
 	$full_body.disabled = exploded
 	$head_collider.disabled = !exploded
@@ -60,10 +79,13 @@ func change_state(exploded):
 	if !exploded:
 		pos = 4
 	
-	$left_floor_ray.position = Vector2(-pos, 0)
-	$right_floor_ray.position = Vector2(pos, 0)
+	#$left_floor_ray.position = Vector2(-2, 0)
+	#$right_floor_ray.position = Vector2(2, 0)
 	
-	var cast_pos = Vector2(0, pos +.2)
+	var cast_pos = Vector2(0, pos + RAYCAST_DISTANCE)
+	if exploded:
+		cast_pos.y = 1 + RAYCAST_DISTANCE
+		
 	$left_floor_ray.cast_to = cast_pos
 	$right_floor_ray.cast_to = cast_pos
 	

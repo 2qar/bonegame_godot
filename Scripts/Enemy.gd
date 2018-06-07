@@ -1,9 +1,11 @@
+# TODO: Fix player hovering above the enemy randomly
 extends KinematicBody2D
 
 var headless = false
 
 func _ready():
 	add_to_group("enemy")
+	$steal/CollisionShape2D.disabled = true
 	pass
 
 func _on_head_area_body_entered(body):
@@ -18,21 +20,21 @@ func _on_steal_body_entered(body):
 
 func destroy_head(player):
 	headless = true
+	$steal/CollisionShape2D.disabled = false
 
 	# make the player bounce
 	var movement = player.call("get_movement")
 	player.call("set_movement", Vector2(movement.x, -60))
 	
 	# get rid of the head
-	$head/head_area/head_collider.disabled = true
+	$head/head_area/head_area_collider.disabled = true
+	$head_collider.queue_free()
 	$head/head_area.queue_free()
 	$head.visible = false
 	
 	# modify the collider to reflect the head removal
-	var shape = RectangleShape2D.new()
-	shape.set_extents(Vector2(4, 2.5))
-	$body_collider.shape = shape
-	$body_collider.position = Vector2(0, 1.5)
+#	$body_collider.shape.set_extents(Vector2(4, 2.5))
+#	$body_collider.position = Vector2(0, 1.5)
 	
 func steal_body():
 	var player = get_parent().get_node("Player")

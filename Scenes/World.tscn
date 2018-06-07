@@ -18,9 +18,7 @@ func _ready():
 	var new_width = size.x * SCALE
 	var new_height = (new_width / 4) * 3
 	
-	OS.set_window_size(Vector2(new_width, new_height))
-	
-	pass"
+	OS.set_window_size(Vector2(new_width, new_height))"
 
 [node name="World" type="Node"]
 
@@ -46,7 +44,19 @@ collision_layer = 3
 position = Vector2( -1, 100 )
 collision_layer = 3
 
-[node name="Enemy" parent="." index="4" instance=ExtResource( 3 )]
+[node name="Platform4" parent="." index="4" instance=ExtResource( 2 )]
+
+position = Vector2( 20.7063, 77.8313 )
+scale = Vector2( 0.544336, 0.544336 )
+collision_layer = 3
+
+[node name="Platform5" parent="." index="5" instance=ExtResource( 2 )]
+
+position = Vector2( 103.081, 77.8313 )
+scale = Vector2( 0.544336, 0.544336 )
+collision_layer = 3
+
+[node name="Enemy" parent="." index="6" instance=ExtResource( 3 )]
 
 position = Vector2( 64, 64 )
 
