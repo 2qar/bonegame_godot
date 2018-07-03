@@ -20,7 +20,7 @@ func _ready():
 	
 	OS.set_window_size(Vector2(new_width, new_height))"
 
-[node name="World" type="Node"]
+[node name="World" type="Node" index="0"]
 
 script = SubResource( 1 )
 
